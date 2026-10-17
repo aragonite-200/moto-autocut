@@ -13,12 +13,12 @@ In DaVinci Resolve viene creata una timeline con tagli modificabili manualmente.
 
 ---
 
-
+<!-- 
 ## Installazione
 
 ### 1. Scaricare il programma
 
-Aprire la pagina [Releases](../../releases/latest) e scaricare il file corrispondente al proprio sistema operativo:
+Aprire la pagina [Releases](../../releases/latest) e scaricare il file corrispondente al proprio sistema operativo.
 
 | Sistema operativo | File |
 |---|---|
@@ -32,7 +32,7 @@ Se non è disponibile una release, gli eseguibili potrebbero non essere ancora s
 
 **Windows**
 
-Eseguire il file `.exe` dal Prompt dei comandi o da PowerShell.
+Aprire PowerShell o il Prompt dei comandi nella cartella contenente l'eseguibile.
 
 **macOS**
 
@@ -52,22 +52,51 @@ chmod +x moto-autocut-linux-x64
 
 ### 3. Requisiti aggiuntivi
 
-Il programma richiede FFmpeg e ffprobe per elaborare i video e generare l'audio. Se non sono inclusi nella distribuzione, devono essere installati separatamente e resi disponibili nel `PATH` di sistema.
+Il programma richiede FFmpeg e `ffprobe` per elaborare i video e generare l'audio. Se non sono inclusi nella distribuzione, devono essere installati separatamente e resi disponibili nel `PATH` di sistema.
 
 Non è necessario installare Python o le librerie Python se si utilizza l'eseguibile precompilato.
 
-### 4. Verificare l'installazione
+### 4. Avviare il programma
 
-Per controllare che il programma sia avviabile, eseguire:
+Il programma è uno strumento da riga di comando e richiede il percorso della cartella contenente i video da elaborare. Non è sufficiente fare doppio clic sull'eseguibile.
 
-```bash
-moto-autocut --help
+**Windows — PowerShell**
+
+```powershell
+.\moto-autocut-windows-x64.exe "C:\Percorso\CartellaVideo"
 ```
 
-Su Windows utilizzare il nome effettivo del file `.exe`.
+**macOS**
 
-Per verificare la lettura dei video e dei dati disponibili, seguire la procedura descritta nella sezione [Primo avvio](#primo-avvio-passo-per-passo).
+```bash
+./moto-autocut-macos "/percorso/cartella-video"
+```
 
+**Linux**
+
+```bash
+./moto-autocut-linux-x64 "/percorso/cartella-video"
+```
+
+Sostituire il percorso di esempio con quello della cartella che contiene i video. Racchiudere il percorso tra virgolette se contiene spazi.
+
+Per specificare anche una traccia musicale, aggiungere l'opzione `--music` seguita dal percorso del file audio. Per esempio, su Windows:
+
+```powershell
+.\moto-autocut-windows-x64.exe "C:\Video\Moto" --music "C:\Musica\traccia.mp3"
+```
+
+Per visualizzare tutte le opzioni disponibili:
+
+```powershell
+.\moto-autocut-windows-x64.exe --help
+```
+
+Su macOS e Linux, utilizzare rispettivamente `./moto-autocut-macos --help` e `./moto-autocut-linux-x64 --help`.
+
+### 5. Primo utilizzo
+
+Dopo aver avviato il programma con il percorso della cartella, seguire la procedura descritta nella sezione [Primo avvio](#primo-avvio-passo-per-passo). -->
 ## Funzionamento e Utilizzo
 
 ## 1. Cosa ti serve
