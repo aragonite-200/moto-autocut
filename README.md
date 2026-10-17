@@ -1,6 +1,6 @@
 # moto_autocut
 
-Programma che prende i tuoi video girati in moto (pensato per la **Insta360 Ace Pro 2 sul casco**) e prepara **in automatico un montaggio** da aprire in **DaVinci Resolve** (anche la versione gratuita).
+Programma per creare **montaggi automatici di video onboard motociclistici**, pensato per **ActionCam montate sul casco**, con esportazione testato su **DaVinci Resolve**, inclusa la versione gratuita.
 
 Non è un plugin dentro Resolve. È un programma separato che:
 
@@ -9,7 +9,7 @@ Non è un plugin dentro Resolve. È un programma separato che:
 3. li mette in ordine a tempo di musica,
 4. scrive un file che Resolve sa importare (`File → Import → Timeline`).
 
-In Resolve ti ritrovi una timeline già montata, con tutti i tagli modificabili a mano. **Il programma non modifica né cancella i tuoi video originali**: li legge soltanto.
+In DaVinci Resolve viene creata una timeline con tagli modificabili manualmente. **Il programma non modifica né cancella i file video originali**: li legge soltanto.
 
 ---
 
@@ -17,7 +17,7 @@ In Resolve ti ritrovi una timeline già montata, con tutti i tagli modificabili 
 
 | Cosa | Obbligatorio | Come |
 |---|---|---|
-| Python 3 | sì | quello che hai già (nel tuo caso 3.13) |
+| Python 3.12 a 64 bit | sì | versione consigliata |
 | ffmpeg e ffprobe | sì | vedi sotto |
 | Pacchetti Python di base | sì | `pip install -r requirements.txt` |
 | `telemetry-parser` | no, ma migliora molto il risultato | vedi sezione 2.3 |
@@ -42,7 +42,7 @@ Se entrambi stampano una versione, è a posto.
 
 ### 1.2 Installare i pacchetti Python di base
 
-È consigliato usare Python 3.12 a 64 bit. Nella cartella dove hai messo i file del programma, crea e attiva un ambiente virtuale:
+È consigliato usare Python 3.12 a 64 bit. Dalla cartella contenente i file del programma, creare e attivare un ambiente virtuale:
 
 ```
 py -3.12 -m venv .venv
@@ -64,7 +64,7 @@ Quando riapri il terminale, attiva di nuovo l'ambiente virtuale con `.venv\Scrip
 
 ### 2.1 Prepara una cartella con le clip
 
-Crea una cartella, per esempio `C:\Moto\Giro1`, e copiaci dentro i video (`.mp4`, `.mov`, `.mkv`). Il programma legge **solo i file direttamente in quella cartella**, non nelle sottocartelle.
+Creare una cartella, per esempio `C:\Moto\Giro1`, e inserirvi i video (`.mp4`, `.mov`, `.mkv`). Il programma legge **solo i file direttamente in quella cartella**, non nelle sottocartelle.
 
 I file che iniziano per `LRV_` (copie a bassa risoluzione che la camera crea accanto ai video) vengono **saltati** in automatico.
 
@@ -74,7 +74,7 @@ I file che iniziano per `LRV_` (copie a bassa risoluzione che la camera crea acc
 python moto_autocut.py "C:\Moto\Giro1" --analyze-only
 ```
 
-**Attenzione ai nomi.** Negli esempi qui `C:\Moto\Giro1` e `brano.mp3` sono *esempi*: devi scrivere il percorso vero della tua cartella e del tuo brano. Se scrivi `./clip` e non esiste una cartella `clip`, il programma si ferma con un errore.
+**Attenzione ai percorsi.** `C:\Moto\Giro1` e `brano.mp3` sono esempi: sostituiscili con i percorsi effettivi della cartella dei video e del brano musicale. Se il percorso indicato non esiste, il programma termina con un errore.
 
 Per ogni video stampa una riga come:
 
@@ -93,15 +93,15 @@ Come leggerla:
 
 Serve il pacchetto `telemetry-parser`. Per Windows a 64 bit esistono pacchetti già pronti solo per **Python 3.9, 3.10, 3.11 e 3.12**, non per il 3.13: per questo con il 3.13 pip prova a compilarlo e fallisce chiedendo Rust.
 
-La soluzione più semplice è installare Python 3.12 accanto al tuo e usarlo con `py -3.12`. La procedura completa, passo per passo, è nel file **`INSTALLARE_TELEMETRY_PARSER.md`**.
+La soluzione più semplice è installare Python 3.12 accanto alla versione già presente e avviarlo con `py -3.12`. La procedura completa è descritta in **`INSTALLARE_TELEMETRY_PARSER.md`**.
 
-Non è garantito che l'Ace Pro 2 sia letto: la libreria dichiara Ace e Ace Pro. Il test pratico è la diagnosi del punto 2.2.
+Non è garantito che funzioni con tutte le ActionCam: esiste una lista di videocamere supportate ma non è aggiornata, potrebbe quindi funzionare anche con altre videocamere (con Insta360 Ace Pro 2 funziona). Il test pratico è la diagnosi del punto 2.2.
 
 ### 2.4 Crea il montaggio
 
-Ci sono tre modi di usarlo. Sostituisci i percorsi con i tuoi.
+Sono disponibili tre modalità di utilizzo. Sostituisci i percorsi di esempio con quelli effettivi.
 
-**a) Durata libera (nessun limite)** – il montaggio dura quanto servono i momenti belli trovati:
+**a) Durata libera (nessun limite)** – la durata del montaggio varia in base ai momenti belli trovati:
 
 ```
 python moto_autocut.py "C:\Moto\Giro1" -o montaggio
@@ -156,16 +156,14 @@ Ogni riga è un taglio: **file**, **da che secondo della clip parte**, **quanto 
 
 1. Apri un progetto in Resolve.
 2. `File → Import → Timeline…` e scegli **`montaggio.fcpxml`**.
-3. Nella timeline trovi il video, l'audio delle clip (vento e motore) e, se hai usato la musica, la traccia musicale.
+3. La timeline contiene il video, l'audio delle clip (vento e motore) e, se è stata specificata, la traccia musicale.
 
 Se qualcosa non va:
 
 - **Non si sente l'audio, o una traccia è vuota** → trascina `montaggio_audio.wav` sulla timeline, a partire dall'inizio, e silenzia (o cancella) le tracce audio vuote. Il file ha già tutto mixato e dura esattamente quanto il montaggio.
-- **Il `.fcpxml` non si importa** → prova `montaggio.xml` (solo video) e poi trascina il `.wav` sotto; oppure `montaggio.otio`.
+- **Il `.fcpxml` non si importa** → usare `montaggio.xml` (solo video) e aggiungere `montaggio_audio.wav` alla timeline; in alternativa, usare `montaggio.otio`.
 - **Le clip risultano "offline"** → tasto destro sulle clip → *Relink Selected Clips* e indica la cartella dei video.
 - Il volume della musica e delle clip è scritto nel file (musica a −8 dB di default), ma Resolve potrebbe non applicarlo: se serve, regolalo a mano nella timeline.
-
-> **Importante.** Non ho potuto provare l'importazione dentro DaVinci Resolve. Ho verificato che i file siano ben formati, che durate e tagli tornino e che il `.wav` suoni davvero. Se `.fcpxml` non funziona sul tuo Resolve, copiami il messaggio di errore o descrivi cosa vedi.
 
 ---
 
@@ -298,7 +296,6 @@ Ogni taglio parte in modo che il momento migliore cada **al centro**, senza usci
 - **Con la musica il montaggio non supera il brano**: i beat finiscono con la musica e il montaggio si ferma lì.
 - **Il vento sul casco è forte**: l'audio delle clip può coprire la musica. Abbassa con `--clip-db`.
 - **Non stabilizza.** Per l'orizzonte stabile usa Gyroflow, separatamente.
-- **Non è stato provato su file reali dell'Ace Pro 2 né dentro DaVinci Resolve** al momento della scrittura: è testato su clip e telemetria simulate. La prima diagnosi sui tuoi file è il vero test.
 - Clip con fotogrammi al secondo diversi nello stesso montaggio funzionano ma sono la situazione meno testata. La timeline usa gli fps della prima clip scelta.
 
 ---
@@ -312,7 +309,7 @@ Ogni taglio parte in modo che il momento migliore cada **al centro**, senza usci
 | `ERRORE: il percorso '...' non esiste` | Percorso sbagliato | Usa il percorso vero, tra virgolette; controlla lettera del disco e nome |
 | `ERRORE: il file musicale '...' non esiste` | Percorso del brano sbagliato | Usa il percorso vero, oppure togli `--music` |
 | `ERRORE: nessun video trovato` | Cartella vuota o video in una sottocartella | Metti i video direttamente nella cartella |
-| `Nessun momento con score >= 0.5` | Soglia troppo alta per i tuoi video | `--min-score 0.35`, oppure usa `--length` |
+| `Nessun momento con score >= 0.5` | Soglia troppo alta per i video analizzati | `--min-score 0.35`, oppure usare `--length` |
 | Montaggio troppo lungo | Troppi momenti sopra soglia | Alza `--min-score` (0.6, 0.7) oppure dai `--length` |
 | Montaggio troppo corto con la musica | Il brano è finito | Usa un brano più lungo |
 | Tagli ancora troppo simili | Variazione bassa o intervallo stretto | `--variety 1` e allarga `--min-cut` / `--max-cut` |
@@ -324,7 +321,7 @@ Ogni taglio parte in modo che il momento migliore cada **al centro**, senza usci
 | Nessun beat rilevato | Brano senza ritmo marcato | Prova un altro brano, oppure togli `--music` |
 | In Resolve le clip sono offline | Resolve non ha ritrovato i file | Tasto destro sulle clip → Relink, e indica la cartella dei video |
 
-Se compare un errore diverso da questi, copia tutto il testo del messaggio così come lo vedi.
+In caso di errori non elencati, consultare il messaggio completo restituito dal programma per individuare la causa.
 
 ---
 
