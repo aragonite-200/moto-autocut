@@ -13,6 +13,63 @@ In DaVinci Resolve viene creata una timeline con tagli modificabili manualmente.
 
 ---
 
+
+## Installazione
+
+### 1. Scaricare il programma
+
+Aprire la pagina [Releases](../../releases/latest) e scaricare il file corrispondente al proprio sistema operativo:
+
+| Sistema operativo | File |
+|---|---|
+| Windows 64 bit | `moto-autocut-windows-x64.exe` |
+| macOS | `moto-autocut-macos` |
+| Linux 64 bit | `moto-autocut-linux-x64` |
+
+Se non è disponibile una release, gli eseguibili potrebbero non essere ancora stati pubblicati.
+
+### 2. Preparare il programma
+
+**Windows**
+
+Eseguire il file `.exe` dal Prompt dei comandi o da PowerShell.
+
+**macOS**
+
+Aprire il Terminale nella cartella contenente il programma e assegnare i permessi di esecuzione:
+
+```bash
+chmod +x moto-autocut-macos
+```
+
+**Linux**
+
+Aprire il terminale nella cartella contenente il programma e assegnare i permessi di esecuzione:
+
+```bash
+chmod +x moto-autocut-linux-x64
+```
+
+### 3. Requisiti aggiuntivi
+
+Il programma richiede FFmpeg e ffprobe per elaborare i video e generare l'audio. Se non sono inclusi nella distribuzione, devono essere installati separatamente e resi disponibili nel `PATH` di sistema.
+
+Non è necessario installare Python o le librerie Python se si utilizza l'eseguibile precompilato.
+
+### 4. Verificare l'installazione
+
+Per controllare che il programma sia avviabile, eseguire:
+
+```bash
+moto-autocut --help
+```
+
+Su Windows utilizzare il nome effettivo del file `.exe`.
+
+Per verificare la lettura dei video e dei dati disponibili, seguire la procedura descritta nella sezione [Primo avvio](#primo-avvio-passo-per-passo).
+
+## Funzionamento e Utilizzo
+
 ## 1. Cosa ti serve
 
 | Cosa | Obbligatorio | Come |
