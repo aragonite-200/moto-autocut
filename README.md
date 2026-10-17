@@ -93,7 +93,7 @@ Come leggerla:
 
 Serve il pacchetto `telemetry-parser`. Per Windows a 64 bit esistono pacchetti già pronti solo per **Python 3.9, 3.10, 3.11 e 3.12**, non per il 3.13: per questo con il 3.13 pip prova a compilarlo e fallisce chiedendo Rust.
 
-La soluzione più semplice è installare Python 3.12 accanto alla versione già presente e avviarlo con `py -3.12`. La procedura completa è descritta in **`INSTALLARE_TELEMETRY_PARSER.md`**.
+La soluzione più semplice è installare Python 3.12 accanto alla versione già presente e avviarlo con `py -3.12`.
 
 Non è garantito che funzioni con tutte le ActionCam: esiste una lista di videocamere supportate ma non è aggiornata, potrebbe quindi funzionare anche con altre videocamere (con Insta360 Ace Pro 2 funziona). Il test pratico è la diagnosi del punto 2.2.
 
