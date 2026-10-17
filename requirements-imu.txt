@@ -1,0 +1,3 @@
+# opzionale ma consigliato: telemetria giroscopio/accelerometro.
+# Su Windows richiede un pacchetto precompilato oppure Rust + Build Tools C++.
+telemetry-parser
