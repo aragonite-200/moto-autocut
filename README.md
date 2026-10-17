@@ -53,7 +53,7 @@ python -m pip install --upgrade pip
 Installa i pacchetti di base:
 
 ```
-python -m pip install numpy scipy librosa==1.0.0 opentimelineio==0.18.1 otio-fcp-adapter==1.0.0
+python -m pip install numpy scipy librosa==1.0.0 opentimelineio==0.18.1 otio-fcp-adapter==1.0.0 telemetry-parser
 ```
 
 Quando riapri il terminale, attiva di nuovo l'ambiente virtuale con `.venv\Scripts\activate` prima di eseguire il programma.

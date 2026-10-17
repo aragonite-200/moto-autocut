@@ -3,3 +3,4 @@ scipy
 librosa
 opentimelineio
 otio-fcp-adapter
+telemetry-parser
